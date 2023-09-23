@@ -1,17 +1,18 @@
 from flask import Flask, render_template, request
 import openai
+import os
 
 app = Flask(__name__)
 
 def gen_response(prompt):
     "DocString"
 
-    openai.api_key = "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"
+    openai.api_key = os.environ.get('OPENAI_API_KEY')
 
     completion = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[
-            {'role': 'system', 'content': "You are an AI used by a university to generate questions for their exams. You strictly follow the prompts and do the tasks"},
+            {'role': 'system', 'content': "You are an AI assistant that helps people with their work."},
             {'role': 'user', 'content': prompt}
         ]
     )
